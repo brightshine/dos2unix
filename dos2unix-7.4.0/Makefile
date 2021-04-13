@@ -66,6 +66,7 @@ BIN             = $(PACKAGE)$(EXE)
 UNIX2DOS_BIN    = $(UNIX2DOS)$(EXE)
 MAC2UNIX_BIN    = $(MAC2UNIX)$(EXE)
 UNIX2MAC_BIN    = $(UNIX2MAC)$(EXE)
+TESTING_SH	= testing.sh
 
 LINK            = ln -sf
 LINK_MAN        = $(LINK)
@@ -536,6 +537,7 @@ install-bin: $(BIN) $(MAC2UNIX_BIN) $(UNIX2DOS_BIN) $(UNIX2MAC_BIN)
 	$(MKDIR) -p -m 755 $(DESTDIR)$(bindir)
 	$(INSTALL_PROGRAM) $(BIN) $(DESTDIR)$(bindir)
 	$(INSTALL_PROGRAM) $(UNIX2DOS_BIN) $(DESTDIR)$(bindir)
+	$(INSTALL_PROGRAM) $(TESTING_SH) $(DESTDIR)$(bindir)
 ifneq ($(DJGPP),)
 	cd $(DESTDIR)$(bindir); stubify -g $(MAC2UNIX_BIN) ; stubedit $(MAC2UNIX_BIN) runfile=$(BIN)
 	cd $(DESTDIR)$(bindir); stubify -g $(UNIX2MAC_BIN) ; stubedit $(UNIX2MAC_BIN) runfile=$(UNIX2DOS_BIN)
@@ -611,6 +613,7 @@ install: install-bin install-man install-mo install-doc
 uninstall:
 	@echo "-- target: uninstall"
 	-rm -f $(DESTDIR)$(bindir)/$(BIN)
+	-rm -f $(DESTDIR)$(bindir)/$(TESTING_SH)
 	-rm -f $(DESTDIR)$(bindir)/$(MAC2UNIX_BIN)
 	-rm -f $(DESTDIR)$(bindir)/$(UNIX2DOS_BIN)
 	-rm -f $(DESTDIR)$(bindir)/$(UNIX2MAC_BIN)
